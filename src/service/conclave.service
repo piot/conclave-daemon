@@ -1,0 +1,16 @@
+# should be placed in:
+# /usr/local/lib/systemd/system
+# check paths with:
+# systemd-analyze unit-paths
+
+[Unit]
+Description=Conclave UDP Relay
+
+[Service]
+ExecStart=/usr/local/sbin/conclaved
+ExecReload=/usr/local/sbin/conclaved
+Type=simple
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

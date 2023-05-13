@@ -39,4 +39,5 @@ jobs:
         with:
           name: conclave daemon Linux files
           path: |
-            src/lib/conclave_daemon
+            src/lib/conclaved
+            src/service/conclave.service

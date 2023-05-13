@@ -1,0 +1,12 @@
+depsversion = "0.0.0"
+
+name = "piot/conclave-daemon"
+version = "0.0.0"
+
+[[dependencies]]
+name = "piot/conclave-server-lib"
+version = "*"
+
+[[dependencies]]
+name = 'piot/udp-server-c'
+version = "*"

@@ -5,6 +5,8 @@
 
 [Unit]
 Description=Conclave UDP Relay
+After=network.target
+Wants=network.target
 
 [Service]
 ExecStart=/usr/local/sbin/conclaved

@@ -6,38 +6,37 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name: make clang-14 the default
-        run: sudo update-alternatives --install /usr/bin/cc cc /usr/bin/clang-14 100
-
-      - name: check clang
-        run: clang --version
+      - name: Install LLVM and Clang 17
+        uses: KyleMayes/install-llvm-action@v1
+        with:
+          version: '17.0.2'
+          env: true
 
       - name: Setup cmake
         uses: jwlawson/actions-setup-cmake@v1.14
         with:
-          cmake-version: '3.25.x'
+          cmake-version: '3.27.x'
 
       - name: Install Go
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v4
         with:
-          go-version: '1.20'
+          go-version: '1.21'
 
       - name: deps fetch dependencies
-        run: go run github.com/piot/deps/src/deps@main fetch --dev
+        run: go run github.com/piot/deps/src/deps@main fetch -t src/deps
 
       - name: create cmake cache
         run: cmake -DCMAKE_BUILD_TYPE=Debug .
-        working-directory: src
+        working-directory: src/
 
       - name: build
         run: cmake --build . --clean-first
-        working-directory: src
+        working-directory: src/
 
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
-          name: conclave daemon Linux files
+          name: Conclave Daemon Linux Executable
           path: |
-            src/lib/conclaved
-            src/service/conclave.service
+            src/lib/conclave-daemon

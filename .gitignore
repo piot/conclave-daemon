@@ -15,3 +15,4 @@ CMakeCache.txt
 src/lib/conclaved
 users.txt
 cmake_install.cmake
+src/lib/conclave-daemon

@@ -11,6 +11,7 @@ CMakeFiles/
 build/
 Makefile
 *.a
-*.cmake
 CMakeCache.txt
 src/lib/conclaved
+users.txt
+cmake_install.cmake

@@ -1,3 +1,7 @@
+<div align="center">
+<img src="https://raw.githubusercontent.com/piot/conclave/main/docs/images/logo.svg" width="256" />
+</div>
+
 # Conclave Daemon
 
 ## Install

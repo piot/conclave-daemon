@@ -4,12 +4,12 @@
  *--------------------------------------------------------------------------------------------*/
 #include "daemon.h"
 
-int clvDaemonInit(ClvDaemon* self)
+int clvDaemonInit(ClvDaemon* self, uint16_t port)
 {
     int err = udpServerStartup();
     if (err < 0) {
         return err;
     }
 
-    return udpServerInit(&self->socket, 27003, true);
+    return udpServerInit(&self->socket, port, true);
 }

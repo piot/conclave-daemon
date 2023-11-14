@@ -13,6 +13,6 @@ typedef struct ClvDaemon {
     UdpServerSocket socket;
 } ClvDaemon;
 
-int clvDaemonInit(ClvDaemon* self);
+int clvDaemonInit(ClvDaemon* self, uint16_t port);
 
 #endif

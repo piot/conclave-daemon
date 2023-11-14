@@ -42,8 +42,9 @@ int main(int argc, char* argv[])
     ImprintDefaultSetup memory;
     imprintDefaultSetupInit(&memory, 16 * 1024 * 1024);
 
+    const uint16_t CONCLAVE_PORT = 27003;
     ClvDaemon daemon;
-    int err = clvDaemonInit(&daemon);
+    int err = clvDaemonInit(&daemon, CONCLAVE_PORT);
     if (err < 0) {
         return err;
     }
@@ -97,7 +98,6 @@ int main(int argc, char* argv[])
     CLOG_OUTPUT("ready for incoming UDP packets")
     bool hasCreatedConclaveDaemon = false;
     while (true) {
-
         struct timespec ts;
 
         ts.tv_sec = 0;
@@ -123,6 +123,8 @@ int main(int argc, char* argv[])
         if (!hasCreatedConclaveDaemon) {
             continue;
         }
+
+        clvServerUpdate(&server);
 
         size = UDP_MAX_SIZE;
         ssize_t errorCode = udpServerReceive(&daemon.socket, buf, size, &address);

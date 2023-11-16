@@ -86,7 +86,6 @@ int main(int argc, char* argv[])
 #define UDP_MAX_SIZE (1200)
 
     uint8_t buf[UDP_MAX_SIZE];
-    size_t size;
     struct sockaddr_in address;
 
 #define UDP_REPLY_MAX_SIZE (UDP_MAX_SIZE)
@@ -126,10 +125,9 @@ int main(int argc, char* argv[])
 
         clvServerUpdate(&server);
 
-        size = UDP_MAX_SIZE;
-        ssize_t errorCode = udpServerReceive(&daemon.socket, buf, size, &address);
-        if (errorCode < 0) {
-            CLOG_WARN("problem with receive %zd", errorCode)
+        ssize_t octetsReceived = udpServerReceive(&daemon.socket, buf, UDP_MAX_SIZE, &address);
+        if (octetsReceived < 0) {
+            CLOG_WARN("problem with receive %zd", octetsReceived)
         } else {
             socketSendToAddress.sockAddrIn = &address;
 
@@ -137,9 +135,9 @@ int main(int argc, char* argv[])
 #if 0
             nimbleSerializeDebugHex("received", buf, size);
 #endif
-            errorCode = clvServerFeed(&server, &address, buf, size, &response);
+            int errorCode = clvServerFeed(&server, &address, buf, (size_t)octetsReceived, &response);
             if (errorCode < 0) {
-                CLOG_WARN("clvServerFeed: error %zd", errorCode)
+                CLOG_WARN("clvServerFeed: error %d", errorCode)
             }
         }
     }

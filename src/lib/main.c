@@ -59,7 +59,7 @@ int main(int argc, char* argv[])
     uint16_t guisePort = 27004;
 
     GuiseClientUdpSecret secret;
-    guiseClientUdpReadSecret(&secret);
+    guiseClientUdpReadSecret(&secret, 0);
 
     guiseClientUdpInit(&guiseClient, &memory.tagAllocator.info, guiseHost, guisePort, &secret);
     // guiseClientUdpReInit(&guiseClient, &guiseTransport, secret.userId, secret.passwordHash);
